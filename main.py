@@ -41,6 +41,7 @@ with dataset:
 
     st.markdown("From the above data, we can easily say the data iss fairly distributed.")
 
+
 with feature:
     st.header("Learning about Feature and converting them")
     
@@ -75,27 +76,31 @@ with feature:
         return ' '.join(text)
     emotion_df['Sentence'] = emotion_df['Sentence'].apply(lemmatize)
 
-    st.markdown('As a data pre-processing, we have done the following things: -Converting the sentence to lowercase,-Removing the Punction , -Lemmatization i.e changing words into it is root form , -Removing the stop words')
+
+    st.markdown('As the part of data pre-processing, we have done the following things:')
+
+    st.text(" - Converting the sentence to lowercase ")
+    st.text(" -Removing the Punction ")
+    st.text(" -Removing the stop words ")
+    st.text(" -Lemmatization i.e changing words into it is root form ,")
+
+    st.markdown("After all these our data looks like-")
 
     st.dataframe(emotion_df.head())
 
-with modelTraining:
-    st.header("time to train model")
-    st.text("this is where we will train the model and rerun everything as per the hyperparameter tuining so on and so forth.")
+    st.markdown("After doing Train Test split we will apply TGIF, It is technique to transform text into a meaningful vector of numbers. TFIDF penalizes words that come up too often and dont really have much use. So it rescales the frequency of words that are common which makes scoring more balanced")
 
+
+with modelTraining:
     from sklearn.model_selection import train_test_split
     X = emotion_df['Sentence']
     y = emotion_df['Target']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2,random_state=10)
 
-    # st.text('TFIDF : It is technique to transform text into a meaningful vector of numbers. TFIDF penalizes words that come up too often and dont really have much use. So it rescales the frequency of words that are common which makes scoring more balanced')
-   
     from sklearn.feature_extraction.text import TfidfVectorizer
     tfidf = TfidfVectorizer(min_df=2, max_df=0.5, ngram_range=(1, 2))
     train_tfidf = tfidf.fit_transform(X_train)
     test_tfidf = tfidf.transform(X_test)
-
-    st.subheader('Model Building')
 
     from sklearn.linear_model import LogisticRegression
     lr = LogisticRegression(max_iter=1000)
@@ -105,34 +110,40 @@ with modelTraining:
     nb = MultinomialNB()
     nb.fit(train_tfidf,y_train)
 
+    st.header('Checking The Accuracy using diffrent model.')
+
     sel_col , disp_col = st.beta_columns(2)
 
     with sel_col:
 
-        sel_col.header("Logistic Regression")
+        sel_col.subheader("Logistic Regression")
 
-        sel_col.subheader("Logistic Regression Train Error")
+        sel_col.markdown("Logistic Regression Train Error")
         sel_col.write(lr.score(train_tfidf, y_train))
 
-        sel_col.subheader("Logistic Regression Test Error")
+        sel_col.markdown("Logistic Regression Test Error")
         sel_col.write( lr.score(test_tfidf, y_test))
     
     with disp_col:
 
-        disp_col.header("Naive Bias")
+        disp_col.subheader("Naive Bias")
 
-        disp_col.subheader("Naive Bias Train Error")
+        disp_col.markdown("Naive Bias Train Error")
         disp_col.write(nb.score(train_tfidf, y_train))
 
-        disp_col.subheader("Naive Bias Test Error")
+        disp_col.markdown("Naive Bias Test Error")
         disp_col.write(nb.score(test_tfidf, y_test))
 
 with testing:
 
+    st.header("Check the emotion in the Text.")
+
+    
+
     option = st.selectbox('Algorithm you would like to use?',
     ('LogisticRegression', 'Naive Bias'))
 
-    input_feature = sel_col.text_input("Enter the statment to predict the  emotion type", "I am happy to help you.")
+    input_feature = st.text_input("Enter the statment to predict the  emotion type", "I am happy to help you.")
     
     test_sentence = tfidf.transform([input_feature])
 
@@ -140,5 +151,7 @@ with testing:
         y = nb.predict(test_sentence)
     else:
         y = lr.predict(test_sentence)
+    
+    st.markdown("The Emotion Predectied in the text")
     
     st.write(y)
