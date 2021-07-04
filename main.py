@@ -1,6 +1,10 @@
 import numpy as np
 import pandas as pd
 
+# import matplotlib.pyplot as plt
+
+import plotly.express as px
+
 import string
 
 import streamlit as st
@@ -149,9 +153,29 @@ with testing:
 
     if(option == "Naive Bias"):
         y = nb.predict(test_sentence)
+        emotions = nb.predict_proba(test_sentence)
+        datas = nb.classes_
     else:
         y = lr.predict(test_sentence)
+        emotions = lr.predict_proba(test_sentence)
+        datas = lr.classes_
     
-    st.markdown("The Emotion Predectied in the text")
+    new_df = pd.DataFrame()
+    new_df['Emotion'] = datas
+    new_df['emotion_propb'] = emotions.T
     
-    st.write(y)
+    st.markdown("The Emotion Predectied in the text is: "+ y)
+
+    fig = px.pie(new_df['Emotion'] , values = new_df['emotion_propb'], names ="Emotion")
+
+    st.write(fig)
+
+    # fig1, ax1 = plt.subplots()
+    # ax1.pie(new_df['emotion_propb'], labels=new_df['Emotion'], autopct='%1.1f%%',
+    #         shadow=True, startangle=90)
+    # ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+    # plt.show()
+
+
+
