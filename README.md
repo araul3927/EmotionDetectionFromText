@@ -18,7 +18,7 @@ To run this project you would need:
   python3 -m venv env
 ```
 
-- Activate the packages
+- Activate the environment
 ```bash
   source env/bin/activate
 ```
@@ -32,13 +32,13 @@ To run this project you would need:
 
 - Run the server
 ```python3
-  python3 main.py
+  python3 backend.py
 
 ```
 
 - Run the UI
 ```python3
-  streamlit run frontend_ui.py
+  streamlit run frontend.py
 ```
 
 If you want to see behind the scenes regarding the model, we have included the ipynb file.
