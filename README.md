@@ -1,12 +1,45 @@
 # EmotionDetectionFromText
-This project tries to predict the emotions of a person from his/her text
+This project tries to predict the emotions of a text document.
 
-How to run the project:
 
-i. clone the project and install required packages as: pip install -r requirements.txt
+## Installation
 
-ii. run npl.ipynb file
+To run this project you would need:
 
-iii. run main.py file
+- Download/ Clone the project
 
-iv. run: streamlit run predict.py
+```git
+  git clone https://github.com/araul3927/EmotionDetectionFromText.git
+```
+
+- Create a virtual environment
+
+```python3
+  python3 -m venv env
+```
+
+- Activate the packages
+```bash
+  source env/bin/activate
+```
+
+- Install the required packages
+
+```python3
+  pip3 install -r requirements.txt
+
+``` 
+
+- Run the server
+```python3
+  python3 main.py
+
+```
+
+- Run the UI
+```python3
+  streamlit run frontend_ui.py
+```
+
+If you want to see behind the scenes regarding the model, we have included the ipynb file.
+
