@@ -1,6 +1,5 @@
 import streamlit as st
-import time
-import numpy as np
+from api_call import api_call
 
 st.title("Emotion Detection")
 st.write("""
@@ -8,14 +7,13 @@ Joy 😂, Fear 😨, Anger 😠, Sad 😟, Disgust 🤢, Shame 😳, Guilt 😓
 """)
 
 option = st.sidebar.selectbox(
-    'Which number do you like best?',
-     ("model1","model2"))
+    label='Which number do you like best?',
+    options=("Logistic Regression","Multinominal NB"))
 
-# st.write('You selected:', option)
 st.markdown(f'You seleted: **{option}** ')
 
 txt = st.text_area('Text to analyze',)
 
-st.button('Predict')
-
-st.write('Emotion:',)
+if st.button('Predict'):
+    emotion = api_call(option,txt)
+    st.write(f'Emotion: { emotion.get("prediction") }')
