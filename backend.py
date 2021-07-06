@@ -29,16 +29,16 @@ def home():
 def predict(data: Data):
     test_sentence = tfidf.transform([data.input_text])
 
-    if data.model_name == "lr":
+    if data.model_name == "Logistic Regression":
         prediction = lr.predict(test_sentence)
-        prediction_label = prediction[0]
-        emotions = nb.predict_proba(test_sentence)
-        datas = nb.classes_
-    else:
-        prediction = nb.predict(test_sentence)
         prediction_label = prediction[0]
         emotions = lr.predict_proba(test_sentence)
         datas = lr.classes_
+    else:
+        prediction = nb.predict(test_sentence)
+        prediction_label = prediction[0]
+        emotions = nb.predict_proba(test_sentence)
+        datas = nb.classes_
 
     return {
         "prediction": prediction_label,
@@ -48,4 +48,4 @@ def predict(data: Data):
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", reload=True)
+    uvicorn.run("backend:app", reload=True)
