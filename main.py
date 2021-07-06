@@ -1,8 +1,6 @@
 # Import Needed Libraries
 import joblib
 import uvicorn
-import numpy as np
-import pandas as pd
 from pydantic import BaseModel
 
 from fastapi import FastAPI
