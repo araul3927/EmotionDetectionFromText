@@ -30,13 +30,18 @@ To run this project you would need:
 
 ``` 
 
+- Run the UI to know about data and its accuracy
+```python3
+  streamlit run model_train.py
+```
+
 - Run the server
 ```python3
   python3 backend.py
 
 ```
 
-- Run the UI
+- Run the UI to predict the emotion of text
 ```python3
   streamlit run frontend.py
 ```
