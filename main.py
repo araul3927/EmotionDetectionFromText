@@ -1,10 +1,8 @@
 # Import Needed Libraries
 import joblib
 import uvicorn
-import numpy as np
-import pandas as pd
 from pydantic import BaseModel
-
+from fastapi.responses import JSONResponse
 from fastapi import FastAPI
 
 
@@ -24,7 +22,7 @@ class Data(BaseModel):
 # Api home endpoint
 @app.get("/")
 def home():
-    return {"message": "API running"}
+    return JSONResponse({"message": "API running"})
 
 
 # NLP API end point
@@ -39,7 +37,7 @@ def predict(data: Data):
         prediction = nb.predict(test_sentence)
         prediction_label = prediction[0]
 
-    return {"prediction": prediction_label}
+    return JSONResponse({"prediction": prediction_label})
 
 
 if __name__ == "__main__":
