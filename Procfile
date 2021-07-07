@@ -1,2 +1,2 @@
-web: sh setup.sh & gunicorn -w 4 -k uvicorn.workers.UvicornWorker backend:app & wait -n & streamlit run frontend.py
- 
+web: sh setup.sh && streamlit run frontend.py
+worker: gunicorn -w 4 -k uvicorn.workers.UvicornWorker backend:app 
