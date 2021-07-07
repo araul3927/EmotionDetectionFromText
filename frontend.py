@@ -11,7 +11,7 @@ def run():
     st.header("Check the emotion in the Text.")
 
     selected_model = st.selectbox(
-        "Algorithm you would like to use?", ("Logistic Regression", "Naive Bias")
+        "Algorithm you would like to use?", ("Logistic Regression", "Naive Bayes")
     )
     input_text = st.text_input(
         "Enter the statment to predict the  emotion type", "Enter your text here"
