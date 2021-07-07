@@ -1,2 +1,2 @@
-web: sh setup.sh & uvicorn backend:app --host=127.0.0.1 --port=${PORT:-8000}  & wait -n & streamlit run frontend.py
+web: sh setup.sh & gunicorn -w 4 -k uvicorn.workers.UvicornWorker backend:app & wait -n & streamlit run frontend.py
  
