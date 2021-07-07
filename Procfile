@@ -1,1 +1,1 @@
-web: sh setup.sh && python backend.py && streamlit run frontend.py
+web: sh setup.sh && uvicorn backend:app --host=0.0.0.0 --port=${PORT:-8000} && streamlit run frontend.py
