@@ -1,0 +1,1 @@
+web: sh setup.sh && python backend.py && streamlit run iris_webapp.py
